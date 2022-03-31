@@ -76,14 +76,18 @@ function createACRNTreatment(toneGeneratorNodes) {
 		// Create f_1 .. f_4 which are "equidistantly placed on a logarithmic scale within the interval [0.5·f_t, 2·f_t]"
 		// It's not clear what the exact tones are from this statement but here's a sensible guess:
 		treatmentTones = [
+			.76 * targetFrequency,
+			.9 * targetFrequency,
+			1.1 * targetFrequency,
+			1.4 * targetFrequency
 			// f_1 = 2^(-1)·f_t
-			Math.pow(2, -1) * targetFrequency,
+			//Math.pow(2, -1) * targetFrequency,
 			// f_2 = 2^(-1/3)·f_t
-			Math.pow(2, -1/3) * targetFrequency,
+			//Math.pow(2, -1/3) * targetFrequency,
 			// f_3 = 2^(1/3)·f_t
-			Math.pow(2, 1/3) * targetFrequency,
+			//Math.pow(2, 1/3) * targetFrequency,
 			// f_4 = 2^(1)·f_t
-			Math.pow(2, 1) * targetFrequency,
+			//Math.pow(2, 1) * targetFrequency,
 		];
 		treatmentTones = treatmentTones.map(function(frequency) {
 			return Math.floor(frequency);
