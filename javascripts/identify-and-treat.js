@@ -76,7 +76,7 @@ function createACRNTreatment(toneGeneratorNodes) {
 		// Create f_1 .. f_4 which are "equidistantly placed on a logarithmic scale within the interval [0.5·f_t, 2·f_t]"
 		// It's not clear what the exact tones are from this statement but here's a sensible guess:
 		treatmentTones = [
-			.76 * targetFrequency,
+			.766 * targetFrequency,
 			.9 * targetFrequency,
 			1.1 * targetFrequency,
 			1.4 * targetFrequency
@@ -99,6 +99,9 @@ function createACRNTreatment(toneGeneratorNodes) {
 		var QUEUING_LEEWAY = 0.1; // The amount of time before the next round of five cycles that we should queue the next five cycles of changes
 		var CYCLE_FREQUENCY = 1.5; // delta
 		var CYCLE_PERIOD = 1 / CYCLE_FREQUENCY;
+		var GAP_TIME = (CYCLE_PERIOD / 4) - .150 // we want to play tones for 150ms so this is the amount of down time between tones
+		console.log(CYCLE_PERIOD / 4)
+		console.log(GAP_TIME)
 		var QUARTER_CYCLE_PERIOD = CYCLE_PERIOD / 4;
 
 		// Update tonesQueuedUntil if necessary
@@ -114,7 +117,15 @@ function createACRNTreatment(toneGeneratorNodes) {
 		for(var i = 0; i < 3; i++) {
 			var randomTones = shuffle(treatmentTones);
 			for(var j = 0; j < randomTones.length; j++) {
-				toneGeneratorNodes.toneGenerator.frequency.setValueAtTime(randomTones[j], tonesQueuedUntil + (CYCLE_PERIOD * i) + (QUARTER_CYCLE_PERIOD * j));
+				const toneStartTime = tonesQueuedUntil + (CYCLE_PERIOD * i) + (GAP_TIME / 2 * (j + 1) + .15*j)
+				const toneStopTime = toneStartTime + .15
+				toneGeneratorNodes.toneGenerator.frequency.setValueAtTime(randomTones[j], toneStartTime);
+
+				//toneGeneratorNodes.gainNode.gain.setValueAtTime(0, toneStartTime - .001);
+				//toneGeneratorNodes.gainNode.gain.linearRampToValueAtTime(volume, toneStartTime);
+				//toneGeneratorNodes.gainNode.gain.setValueAtTime(volume, toneStopTime);
+				//toneGeneratorNodes.gainNode.gain.linearRampToValueAtTime(0, toneStopTime - .010);
+
 				generatedTones.push(randomTones[j]);
 			}
 		}

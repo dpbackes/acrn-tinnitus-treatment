@@ -85,10 +85,10 @@
 				</div>
 				<div>
 					<label for="toneFrequencySlider">Frequency</label>
-					<input id="toneFrequencySlider" name="toneFrequencySlider" type="range" max="20000" min="0" value="440" step="10" onchange="app.updateFrequency()"/>
+					<input id="toneFrequencySlider" name="toneFrequencySlider" type="range" max="1000" min="200" value="440" step="1" onchange="app.updateFrequency()"/>
 					<p>Selected frequency: <span id="selectedFrequencySpan">440</span>Hz</p>
 					<label for="volumeSlider">Volume</label>
-					<input id="volumeSlider" name="volumeSlider" type="range" max="1" min="0" value="0.05" step="0.01" onchange="app.updateVolume()"/>
+					<input id="volumeSlider" name="volumeSlider" type="range" max=".5" min="0" value="0.001" step="0.01" onchange="app.updateVolume()"/>
 				</div>
 			</section>
 
